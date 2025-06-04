@@ -1,0 +1,47 @@
+/* 基础样式 */
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #fafafa;
+  }
+  
+  /* 段落和标题的间距 */
+  h1, h2, h3, h4 {
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  p {
+    margin-bottom: 1rem;
+  }
+  
+  /* 导航栏品牌名称样式 */
+  .navbar-brand {
+    font-weight: bold;
+  }
+  
+  /* 控制表格和图片的自适应 */
+  .table {
+    width: auto;
+  }
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* 调整表格单元字体大小 */
+  .table-sm td, .table-sm th {
+    font-size: 0.95rem;
+  }
+  
+  /* 嵌入内容容器 */
+  .embed-responsive {
+    position: relative;
+    height: auto;
+  }
+  
+  /* 列表项粗体强调 */
+  ul li strong {
+    color: #333;
+  }
+  

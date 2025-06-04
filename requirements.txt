@@ -1,0 +1,10 @@
+pandas>=1.5.3
+sentence-transformers
+bertopic
+gensim
+pyLDAvis
+matplotlib
+tqdm>=4.67.1
+datasets>=2.18.0
+torch>=2.4.1
+transformers>=4.46.3 
