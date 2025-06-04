@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-network_viz_final.py
 ------------------------------------------------------------
 Step 4 ：关键词共现 + 用户互动（单 HTML，可手动暂停 / 稳定）
 生成：
@@ -27,7 +26,8 @@ from tqdm import tqdm
 # 通用工具
 # ------------------------------------------------------------
 ROOT = Path(__file__).parent
-OUT  = ROOT / "outputs"; OUT.mkdir(exist_ok=True)
+DATA = ROOT.parent / "data"  # 添加data文件夹路径
+OUT  = ROOT.parent / "docs" / "outputs"; OUT.mkdir(exist_ok=True)  # 修改输出路径到docs/outputs
 
 def parse_tokens(x):
     if isinstance(x, list):
@@ -46,7 +46,7 @@ def save_html_utf8(net: Network, path: Path):
 # ------------------------------------------------------------
 # 读取数据
 # ------------------------------------------------------------
-CSV = ROOT / "weibo_cleaned.csv"
+CSV = DATA / "weibo_cleaned.csv"  # 修改CSV文件路径
 assert CSV.exists(), "❌ 找不到 weibo_cleaned.csv"
 
 df = pd.read_csv(CSV)
