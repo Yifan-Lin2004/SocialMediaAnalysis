@@ -7,16 +7,16 @@ import requests
 import time
 import random
 
-# 设置为自己的cookies
+# 设置为自己的cookies（为隐私考虑就不在此展示了）
 cookies = {
-    "SINAGLOBAL": "2726676914000.512.1747816960174",
-    "ALF": "02_1750408958",
-    "SUB": "_2A25FKeGuDeRhGeBN6VER8ijJyziIHXVmR3tmrDV8PUNbmtANLWTlkW9NRJ8km1r6Rdalt25ayAtUXyYz1ISdfred",
-    "SUBP": "0033WrSXqPxfM725Ws9jqgMF55529P9D9WW7vVcXLn05JLJAXY6mDNyD5JpX5KzhUgL.Foq0eoe7eoqfehB2dJLoIc7LxKBLBonL12BLxKqL1heLBoeLxKnLBKzLB-zLxKBLB.2LB.2LxK-L12qL1K2LxKML12-LBo5LxKML1-2L1hBLxKqLB.BL1-eLxKqLBo5LBoBLxKML1-2L1hBLxK-LBo5L12qLxK.LBo2LB.et",
-    "_s_tentry": "www.weibo.com",
-    "Apache": "2726676914000.512.1747816960174",
-    "ULV": "1747816960249:1:1:1:2726676914000.512.1747816960174:",
-    "WBPSESS": "7doVIn1K01v9bxbQHZs8QC1Fdz8PLWyRukcDdA4YR0Jk2RJRsBFr4XDv2A5HdvM4ZnvkjnDdnNp78Ue_Qh4PFnsiZiY6mhvA7PAfhCRuFbeWbTT790X9fN2BDaiXiN9_"
+    "SINAGLOBAL": "",
+    "ALF": "",
+    "SUB": "",
+    "SUBP": "",
+    "_s_tentry": "",
+    "Apache": "",
+    "ULV": "",
+    "WBPSESS": ""
 }
 
 
@@ -86,19 +86,6 @@ def parse_the_list(text):
         comments = None
         star = None
 
-        # # 尝试更健壮的选择器来获取转发、评论和点赞数 (这段代码已被注释或移除，因为不需要这些列)
-        # card_act = div.select_one('div.card-act > ul')
-        # if card_act:
-        #     action_links = card_act.select('li a')
-        #     for link in action_links:
-        #         text_content = link.get_text().strip()
-        #         if '转发' in text_content:
-        #             # ... (原转发提取逻辑)
-        #         elif '评论' in text_content:
-        #             # ... (原评论提取逻辑)
-        #         elif '赞' in text_content:
-        #             # ... (原点赞提取逻辑)
-
         lst.append((mid, uid, content, time))
     # 更新列名，移除转发、评论、点赞
     df = pd.DataFrame(lst, columns=['mid', 'uid', 'content', 'time'])
@@ -152,7 +139,9 @@ if __name__ == '__main__':
     
     # 保存数据
     if not df.empty:
-        filename = f'{q.replace("#", "").replace(" ", "_")}.csv'
+        # 确保data目录存在
+        os.makedirs('data', exist_ok=True)
+        filename = f'data/{q.replace("#", "").replace(" ", "_")}.csv'
         try:
             df.to_csv(filename, index=False, encoding='utf_8_sig')
             print(f'数据已保存到 {filename}')
