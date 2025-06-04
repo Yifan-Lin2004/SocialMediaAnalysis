@@ -14,9 +14,8 @@ plt.rcParams['font.sans-serif'] = ['SimHei']
 plt.rcParams['axes.unicode_minus'] = False
 
 # --------------------------------- 目录 ----------------------
-SCRIPT_DIR = Path(__file__).parent
-OUTPUT_DIR = SCRIPT_DIR / 'outputs'
-OUTPUT_DIR.mkdir(exist_ok=True)
+OUTPUT_DIR = Path('docs/outputs')
+OUTPUT_DIR.mkdir(exist_ok=True, parents=True)
 
 # --------------------------------- 读数据 --------------------
 df_binary  = pd.read_csv(OUTPUT_DIR / 'weibo_sent_binary.csv')
