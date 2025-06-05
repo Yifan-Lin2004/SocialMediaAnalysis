@@ -49,7 +49,9 @@ The project’s code and directory structure mirror the analysis steps. Each Pyt
 
 ## 可视化结果 / Visualization Results
 
-项目的主要分析结果均已通过可视化进行呈现，可在`docs/outputs`目录下查看交互式的HTML文件或静态图片，**index.html为汇总版的可视化结果**：
+**index.html为汇总版的可视化结果**,调用了style.css和script.js。
+
+项目的主要分析结果均已通过可视化进行呈现，可在`docs/outputs`目录下查看交互式的HTML文件或静态图片：
 
 * **BERTopic主题可视化：** `docs/outputs/bertopic_topics.html` 展示了BERTopic模型得到的主题分布图。每个气泡代表一个主题，大小对应主题包含的微博数量，气泡之间的距离反映主题间的相似度。通过悬停可查看各主题的代表关键词和权重。该图有助于直观了解BERTopic提取的主题及它们的关联。
 * **LDA主题可视化：** `docs/outputs/lda_vis_18.html` 是LDA模型的交互式可视化（由PyLDAvis生成）。左侧是“主题间距离图 (Intertopic Distance Map)”【15†】——每个圆点为一个主题，面积表示主题占比，图中主题的相对距离表示它们在语料中的区别度；右侧则显示选中主题的详细信息，包括该主题的Top词语及其频率分布情况。用户可以通过点击不同主题来观察其关键词组成和与其他主题的关系。
