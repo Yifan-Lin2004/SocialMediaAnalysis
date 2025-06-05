@@ -23,9 +23,10 @@ multiprocessing.freeze_support()
 # 0. 路径 & 读入数据
 # ============================================================
 SCRIPT_DIR   = Path(__file__).parent.absolute()
+ROOT_DIR     = SCRIPT_DIR.parent
 OUTPUTS_DIR  = SCRIPT_DIR / "docs" / "outputs";      OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 MODELS_DIR   = SCRIPT_DIR / "models";       MODELS_DIR.mkdir(exist_ok=True)
-DATA_FILE    = SCRIPT_DIR / "weibo_cleaned.csv"
+DATA_FILE    = ROOT_DIR / "data" / "weibo_cleaned.csv"
 assert DATA_FILE.exists(), f"找不到 {DATA_FILE}"
 
 df = pd.read_csv(DATA_FILE)
@@ -70,7 +71,7 @@ def jieba_tokenizer(text):
 vectorizer = CountVectorizer(
     tokenizer=jieba_tokenizer,
     ngram_range=(1,2),
-    min_df=2,
+    min_df=1,
     max_df=0.95
 )
 
@@ -83,7 +84,7 @@ topic_model = BERTopic(
     language="chinese",
     embedding_model=sentence_model,
     vectorizer_model=vectorizer,
-    min_topic_size=10,
+    min_topic_size=5,
     top_n_words=12,
     calculate_probabilities=True,
     verbose=True
@@ -95,16 +96,19 @@ topics, probs = topic_model.fit_transform(texts)
 topic_model = topic_model.reduce_topics(docs=texts, nr_topics="auto")
 topics = topic_model.topics_
 
-
 # 保存
 BER_DIR = MODELS_DIR / "bertopic_model"; BER_DIR.mkdir(exist_ok=True)
 topic_model.save(str(BER_DIR / "model"))
 topic_model.get_topic_info().to_csv(OUTPUTS_DIR / "bertopic_topic_info.csv", index=False, encoding="utf-8")
 
 # 可视化
-fig_bt = topic_model.visualize_topics(width=1200, height=700)
-fig_bt.write_html(str(OUTPUTS_DIR / "bertopic_topics.html"))
-print("✅ BERTopic 训练 & 可视化完成")
+try:
+    fig_bt = topic_model.visualize_topics(width=1200, height=700)
+    fig_bt.write_html(str(OUTPUTS_DIR / "bertopic_topics.html"))
+    print("✅ BERTopic 训练 & 可视化完成")
+except Exception as e:
+    print(f"⚠️ BERTopic 可视化失败: {str(e)}")
+    print("继续执行其他步骤...")
 
 # ============================================================
 # 2. LDA (k=18) + 可视化
@@ -178,6 +182,7 @@ best_model.save(str(LDA_DIR / f"lda_best_k{best_k}.bin"))
 print(f"🎯 最佳 k = {best_k} (c_v={best_c:.4f}) → 模型已保存")
 
 print("\n✨ All done. 结果 & 可视化均写入 outputs/")
+
 
 
 
