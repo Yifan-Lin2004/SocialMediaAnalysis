@@ -29,9 +29,10 @@ from transformers import (
 # ------------------------------------------------------------
 # 获取脚本所在目录
 SCRIPT_DIR = Path(__file__).parent
-OUTPUT_DIR = SCRIPT_DIR / 'docs' / 'outputs'
+DATA_DIR = SCRIPT_DIR.parent / 'data'
+OUTPUT_DIR = DATA_DIR / 'outputs'
 OUTPUT_DIR.mkdir(exist_ok=True, parents=True)
-CSV_FILE = SCRIPT_DIR / "weibo_cleaned.csv"
+CSV_FILE = DATA_DIR / "weibo_cleaned.csv"
 assert CSV_FILE.exists(), f"找不到 {CSV_FILE}"
 
 df = pd.read_csv(CSV_FILE)
